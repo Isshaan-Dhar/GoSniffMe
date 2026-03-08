@@ -45,18 +45,15 @@ func processPacket(packet gopacket.Packet) {
 	ipLayer := packet.Layer(layers.LayerTypeIPv4)
 	if ipLayer != nil {
 		ip, _ := ipLayer.(*layers.IPv4)
-
-		// Check for TCP Layer (Transport Layer)
 		tcpLayer := packet.Layer(layers.LayerTypeTCP)
 		if tcpLayer != nil {
 			tcp, _ := tcpLayer.(*layers.TCP)
-			// Print Source IP:Port -> Destination IP:Port
 			fmt.Printf("[TCP] %s:%s -> %s:%s\n", ip.SrcIP, tcp.SrcPort, ip.DstIP, tcp.DstPort)
 		} else {
-			// Fallback for non-TCP traffic (UDP, ICMP, etc.)
 			fmt.Printf("[IP]  %s -> %s | Protocol: %s\n", ip.SrcIP, ip.DstIP, ip.Protocol)
 		}
 	}
 }
+
 
 
