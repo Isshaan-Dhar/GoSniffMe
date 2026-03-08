@@ -20,7 +20,6 @@ func main() {
 		fmt.Printf("[%d] Name: %s\n    Description: %s\n\n", i, d.Name, d.Description)
 	}
 
-	// Change '0' to the index of your active internet connection from the list above
 	var (
 		device      string        = devices[0].Name
 		snapshotLen int32         = 1024
@@ -43,7 +42,6 @@ func main() {
 }
 
 func processPacket(packet gopacket.Packet) {
-	// Check for IPv4 Layer (Network Layer)
 	ipLayer := packet.Layer(layers.LayerTypeIPv4)
 	if ipLayer != nil {
 		ip, _ := ipLayer.(*layers.IPv4)
@@ -60,4 +58,5 @@ func processPacket(packet gopacket.Packet) {
 		}
 	}
 }
+
 
