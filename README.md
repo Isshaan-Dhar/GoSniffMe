@@ -26,10 +26,16 @@ Go Compiler: (v1.24+ recommended).
 Npcap: Must be installed in "WinPcap API-compatible Mode".
 
 ### Building from Source
-Initialize and Download Dependencies:
+#### Initialize and Download Dependencies:
+go mod init gosniffme    
+go get github.com/google/gopacket
 
-Compile the Executable:
+#### Compile the Executable:
+go build
 
-Running the Analyzer
+#### Running the Analyzer:
+./gosniffme.exe
+
+
 ## [!IMPORTANT]
 Network sniffing requires Administrator Privileges. Ensure your terminal or VS Code is running as an Administrator.
