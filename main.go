@@ -11,19 +11,15 @@ import (
 )
 
 func main() {
-	// 1. Find all network devices (Wi-Fi, Ethernet, etc.)
 	devices, err := pcap.FindAllDevs()
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// 2. Print the list so you can identify your active interface
 	fmt.Println("--- GoSniffMe: Available Interfaces ---")
 	for i, d := range devices {
 		fmt.Printf("[%d] Name: %s\n    Description: %s\n\n", i, d.Name, d.Description)
 	}
 
-	// 3. Configuration settings
 	// Change '0' to the index of your active internet connection from the list above
 	var (
 		device      string        = devices[0].Name
@@ -32,18 +28,15 @@ func main() {
 		timeout     time.Duration = 30 * time.Second
 	)
 
-	// 4. Open the device for live sniffing
 	handle, err := pcap.OpenLive(device, snapshotLen, promiscuous, timeout)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer handle.Close()
 
-	// 5. Start the packet source
 	packetSource := gopacket.NewPacketSource(handle, handle.LinkType())
 	fmt.Println("[*] GoSniffMe is Live. Capturing traffic...")
 
-	// 6. Loop through packets as they arrive
 	for packet := range packetSource.Packets() {
 		processPacket(packet)
 	}
@@ -67,3 +60,4 @@ func processPacket(packet gopacket.Packet) {
 		}
 	}
 }
+
